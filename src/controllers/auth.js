@@ -19,3 +19,11 @@ exports.login = async (req, res) => {
 
   res.json({ token, role: user.role});
 };
+exports.register = async (req, res) => {
+    const { email, password, role} = req.body;
+    
+    // Validate input
+    if(!email || password) {
+        return res.status(400).json({ error: 'Email and password are required'});
+    }
+}

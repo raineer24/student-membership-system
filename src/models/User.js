@@ -1,3 +1,5 @@
+
+const bcrypt = require('bcryptjs');
 const users = [
     {
         id: 1,
@@ -10,5 +12,7 @@ const users = [
 module.exports = {
     findByEmail: (email) => users.find(user => user.email === email),
     findById: (id) => users.find(user => user.id === id),
-    create: async (userData) => {}
+    create: async (userData) => {
+        const hashedPassword = await bcrypt.hash
+    }
 };
