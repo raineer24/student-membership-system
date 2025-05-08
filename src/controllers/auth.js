@@ -17,13 +17,31 @@ exports.login = async (req, res) => {
     expiresIn: "1h",
   });
 
-  res.json({ token, role: user.role});
+  res.json({ token, role: user.role });
 };
 exports.register = async (req, res) => {
-    const { email, password, role} = req.body;
-    
-    // Validate input
-    if(!email || password) {
-        return res.status(400).json({ error: 'Email and password are required'});
-    }
-}
+  const { email, password, role } = req.body;
+
+  // Validate input
+  if (!email || password) {
+    return res.status(400).json({ error: "Email and password are required" });
+  }
+
+  // Check if user exists
+  if(User.findByEmail(email)) {
+    return res.status(400).json({ error: 'Email and password are required'});
+  }
+
+  try {
+    const newUser = await User.create({email, password, role});
+    res.status(201).json({
+        id: newUser.id,
+        email: newUser.email,
+        role: newUser.role
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Registration failed'});
+  }
+
+
+};
