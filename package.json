@@ -1,7 +1,6 @@
 {
   "name": "student-membership-system",
   "version": "1.0.0",
-  
   "scripts": {
     "start": "nodemon src/server.js"
   },
