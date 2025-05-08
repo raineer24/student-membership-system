@@ -16,4 +16,10 @@ app.use('/api/auth', authRoutes);
 app.use('/api/students', studentRoutes);
 //app.use('/api/payments', pay);\
 
+//Error handling
+app.use((err, req,res, next) => {
+    console.log(err.stack);
+    res.status(500).send('Something broke!');
+});
 
+module.exports = app;
