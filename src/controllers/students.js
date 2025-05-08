@@ -6,6 +6,8 @@ exports.getAllStudents = (req, res) => {
 
 exports.getStudent = (req, res) => {
   const student = Student.getById(req.params.id);
+  console.log('student', req.params.id);
+  console.log('get by idtudent', student);
   if (!student) return res.status(404).json({ error: "Student not found" });
   res.json(student);
 };
@@ -17,7 +19,7 @@ exports.createStudent = (req, res) => {
 
 exports.updateStudent = (req, res) => {
   const updated = Student.update(req.params.id, req.body);
-  if (!updated) return res.stsatus(404).json({ error: "Student not found" });
+  if (!updated) return res.status(404).json({ error: "Student not found" });
   res.json(204).send();
 };
 

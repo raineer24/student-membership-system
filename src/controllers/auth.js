@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+require('dotenv').config();
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const { JWT_SECRET } = process.env;
@@ -7,7 +8,8 @@ exports.login = async (req, res) => {
   const { email, password } = req.body;
 
   const user = User.findByEmail(email);
-  if (!user) return res.status(401).json({ error: "Invalid credentials" });
+  console.log('findbyermail', user);
+  if (!user) return res.status(401).json({ error: "Invalid credentials!" });
 
   const validPassword = await bcrypt.compare(password, user.password);
   if (!validPassword)
@@ -21,7 +23,7 @@ exports.login = async (req, res) => {
 };
 exports.register = async (req, res) => {
   const { email, password, role } = req.body;
-  console.log("Received:", email, password); 
+ 
   // Validate input
   if (!email || !password) {
     return res.status(400).json({ error: "Email and password are required" });
@@ -34,8 +36,7 @@ exports.register = async (req, res) => {
 
   try {
     const newUser = await User.create({email, password, role});
-    console.log("Created user:", newUser);
-    console.log('newUser',newUser);
+ 
     res.status(201).json({
         id: newUser.id,
         email: newUser.email,
