@@ -9,12 +9,9 @@ exports.getStudent = (req, res) => {
   console.log("student", req.params.id);
   console.log("get by idtudent", student);
   if (!student) {
-    return res
-      .status(404)
-      .json({
-        error: `Student with ID ${req.params.id}`,
-        availableIds: students.map((s) => s.id),
-      });
+    return res.status(404).json({
+      error: `Student with ID ${req.params.id} not found`,
+    });
   }
   res.json(student);
 };
