@@ -21,9 +21,9 @@ exports.login = async (req, res) => {
 };
 exports.register = async (req, res) => {
   const { email, password, role } = req.body;
-
+  console.log("Received:", email, password); 
   // Validate input
-  if (!email || password) {
+  if (!email || !password) {
     return res.status(400).json({ error: "Email and password are required" });
   }
 
@@ -34,6 +34,8 @@ exports.register = async (req, res) => {
 
   try {
     const newUser = await User.create({email, password, role});
+    console.log("Created user:", newUser);
+    console.log('newUser',newUser);
     res.status(201).json({
         id: newUser.id,
         email: newUser.email,
